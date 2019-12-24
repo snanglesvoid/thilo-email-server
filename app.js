@@ -1,11 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 const sg = require("@sendgrid/mail");
 
 require("dotenv").config();
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.json(urlencoded, { extended: false }));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms")
+);
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("email server working");
