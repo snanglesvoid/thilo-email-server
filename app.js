@@ -15,11 +15,11 @@ app.use(
 );
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/post-message", (req, res) => {
   res.send("email server working");
 });
 
-app.post("/", (req, res) => {
+app.post("/post-message", (req, res) => {
   console.log(req.body);
 
   const html = `
@@ -34,7 +34,7 @@ app.post("/", (req, res) => {
     from: req.body.email,
     subject: "Neue Nachricht von der Webseite",
     text: req.body.message,
-    html: "<strong>and easy to do anywhere, even with Node.js</strong>"
+    html: html
   };
   sg.send(msg);
 });
