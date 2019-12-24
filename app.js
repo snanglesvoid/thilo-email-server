@@ -41,19 +41,19 @@ app.get("/post-message", (req, res) => {
 
 app.post("/post-message", (req, res) => {
   console.log(req.body);
-
+  let data = req.body.data;
   const html = `
-    <h3>Firstname: ${req.body.firstname}</h3>
-    <h3>Lastname: ${req.body.lastname}</h3>
-    <p>Email: ${req.body.email}</p>
-    <p>${req.body.message}</p>
+    <h3>Firstname: ${data.firstname}</h3>
+    <h3>Lastname: ${data.lastname}</h3>
+    <p>Email: ${data.email}</p>
+    <p>${data.message}</p>
   `;
 
   const msg = {
     to: "janikhotz@gmail.com",
-    from: req.body.email,
+    from: data.email,
     subject: "Neue Nachricht von der Webseite",
-    text: req.body.message,
+    text: data.message,
     html: html
   };
   sg.send(msg)
