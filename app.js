@@ -26,7 +26,7 @@ app.get("/post-message", (req, res) => {
   `;
 
   const msg = {
-    to: "janikhotz@gmail.com",
+    to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
     from: "janikhotz@gmail.com",
     subject: "Neue Nachricht von der Webseite",
     text: "text",
