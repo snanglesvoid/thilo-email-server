@@ -57,8 +57,14 @@ app.post("/post-message", (req, res) => {
     html: html
   };
   sg.send(msg)
-    .catch(reason => console.error(reason.response.body))
-    .then(console.log);
+    .catch(reason => {
+      console.error(reason.response.body);
+      res.status(500).send(reason);
+    })
+    .then(x => {
+      console.log(x);
+      res.json(x);
+    });
 });
 
 app.listen(process.env.PORT || 3000, function() {
