@@ -9,7 +9,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.json(urlencoded, { extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
