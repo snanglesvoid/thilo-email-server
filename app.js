@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const sg = require("@sendgrid/mail");
 
+sg.setApiKey(process.env.SENDGRID_API_KEY);
+
 require("dotenv").config();
 
 const app = express();
