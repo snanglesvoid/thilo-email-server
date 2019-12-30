@@ -2,11 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
-const sg = require("@sendgrid/mail");
-require("dotenv").config();
 
-console.log(process.env.SENDGRID_API_KEY);
-sg.setApiKey(process.env.SENDGRID_API_KEY);
+require("dotenv").config();
 
 const app = express();
 
@@ -18,26 +15,25 @@ app.use(
 app.use(cors());
 
 app.get("/post-message", (req, res) => {
-  const html = `
-    <h3>Firstname: xyz</h3>
-    <h3>Lastname: dflkgjdfg</h3>
-    <p>Email: janikhotz@gmail.com</p>
-    <p>hello world</p>
-  `;
+  const send = require("gmail-send")({
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+    to: "snangles.void@gmail.com, info@thilobaum.design, info@heikobaum.design",
+    subject: "Website: Test Message"
+  });
 
-  const msg = {
-    // to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
-    to: "janikhotz@gmail.com",
-    from: "janikhotz@gmail.com",
-    subject: "Neue Nachricht von der Webseite",
-    text: "text",
-    html: html
-  };
-  sg.send(msg)
-    .catch(reason => console.error(reason.response.body))
-    .then(console.log);
-
-  res.send("email server working");
+  send(
+    {
+      html: "<h1>Hello World!</h1>"
+    },
+    (error, result, fullResult) => {
+      if (error) {
+        console.error(error);
+      }
+      console.log(result);
+    }
+  );
+  res.json({ message: "ok" });
 });
 
 app.post("/post-message", (req, res) => {
@@ -51,23 +47,26 @@ app.post("/post-message", (req, res) => {
     <p>${data.message}</p>
   `;
 
-  const msg = {
-    // to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
-    to: "janikhotz@gmail.com",
-    from: "janikhotz@gmail.com", //data.email,
-    subject: "Neue Nachricht von der Webseite",
-    text: data.message,
-    html: html
-  };
-  sg.send(msg)
-    .catch(reason => {
-      console.error(reason.response.body);
-      res.status(500).send(reason);
-    })
-    .then(x => {
-      console.log(x);
-      res.json(x);
-    });
+  const send = require("gmail-send")({
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+    to: "snangles.void@gmail.com, info@thilobaum.design, info@heikobaum.design",
+    subject: "Website: New message from " + data.email
+  });
+
+  send(
+    {
+      html: html
+    },
+    (error, result, fullResult) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).send(error);
+      }
+      console.log(result);
+      res.json(result);
+    }
+  );
 });
 
 app.listen(process.env.PORT || 3000, function() {
