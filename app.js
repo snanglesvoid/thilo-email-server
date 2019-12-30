@@ -27,7 +27,7 @@ app.get("/post-message", (req, res) => {
 
   const msg = {
     to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
-    from: "janikhotz@gmail.com",
+    from: "noreply@thilobaum.design",
     subject: "Neue Nachricht von der Webseite",
     text: "text",
     html: html
@@ -45,13 +45,14 @@ app.post("/post-message", (req, res) => {
   const html = `
     <h3>Firstname: ${data.firstname}</h3>
     <h3>Lastname: ${data.lastname}</h3>
-    <p>Email: ${data.email}</p>
+    <h3>Email: ${data.email}</h3>
+    <h3>Message:</h3>
     <p>${data.message}</p>
   `;
 
   const msg = {
-    to: "janikhotz@gmail.com",
-    from: data.email,
+    to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
+    from: "noreply@thilobaum.design", //data.email,
     subject: "Neue Nachricht von der Webseite",
     text: data.message,
     html: html
