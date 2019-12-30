@@ -26,8 +26,9 @@ app.get("/post-message", (req, res) => {
   `;
 
   const msg = {
-    to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
-    from: "noreply@thilobaum.design",
+    // to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
+    to: "janikhotz@gmail.com",
+    from: "janikhotz@gmail.com",
     subject: "Neue Nachricht von der Webseite",
     text: "text",
     html: html
@@ -51,8 +52,9 @@ app.post("/post-message", (req, res) => {
   `;
 
   const msg = {
-    to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
-    from: "noreply@thilobaum.design", //data.email,
+    // to: "janikhotz@gmail.com info@thilobaum.design info@heikobaum.design",
+    to: "janikhotz@gmail.com",
+    from: "janikhotz@gmail.com", //data.email,
     subject: "Neue Nachricht von der Webseite",
     text: data.message,
     html: html
